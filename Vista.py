@@ -27,7 +27,7 @@ class Vista():
         self.frameDatos = Frame(self.ventana)
         self.frameImagen = Frame(self.ventana, height=600, width=600)
         self.frameImagen.config(bg='black')
-        self.sucesion = []
+        self.sucesion = ""
         self.scale = 1
         self.var = StringVar()
         self.var.set("")
@@ -48,7 +48,12 @@ class Vista():
         indice = int(self.entradaPosicion.get())
         makerSucesion = MakeSeries()
         makerSucesion.makeSerie(indice)
-        self.sucesion = makerSucesion.serie
+        self.sucesion = makerSucesion.toString()
+        if indice > 30: 
+            file = open("SucesionDeFarey.txt", "w")
+            file.write(self.sucesion)
+            file.close()
+            self.sucesion = ""
         
     def makeLabel(self):
         #Metodo que genera nuestros reccuadros de texto y los posiciona dentro de nuestra ventana
@@ -62,7 +67,7 @@ class Vista():
         labelIngresa.grid(row = 1, column = 0, columnspan = 2, sticky='w', padx = 10, pady = 10)
         labelNumeros = Label(self.frameDatos, 
                              textvariable=self.var, 
-                             font=('Arial', 20))
+                             font=('Arial', 15))
         labelNumeros.pack()
     def makeBotones(self):
         #Metodo que crea los botones y los posiciona dentro de nuestra ventana 

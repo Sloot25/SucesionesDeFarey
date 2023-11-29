@@ -14,3 +14,14 @@ class MakeSeries():
         self.serie = tmp
     def reiniciarLista(self):
         self.serie = [(0,1),(1,1)]
+
+    def toString(self): 
+        contador=0
+        cadena = "{ "
+        for i in range(0, len(self.serie)):
+            cadena = cadena + str(self.serie[i][0]) + "/" + str(self.serie[i][1]) + ", "
+            contador+=1
+            if contador >= 20: 
+                contador = 0
+                cadena = cadena + "\n"
+        return cadena + "}"

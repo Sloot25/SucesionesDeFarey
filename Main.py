@@ -6,5 +6,5 @@ def __init__(self):
 maker = MakeSeries()
 maker.makeSerie(3)
 ventana = Vista()
-print(maker.serie)
+print(maker.toString())
 
