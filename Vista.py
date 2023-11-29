@@ -4,12 +4,15 @@ from MakeSeries import MakeSeries
 
 class Vista():
     def changePoligono(self):
+        self.makeSucesion()
         self.frameImagen.config(bg="blue")
         print("Aqui se debe cambiar la ventana")
     def changePuntosVisibles(self):
+        self.makeSucesion()
         self.frameImagen.config(bg="red")
         print("Aqui se debe cambiar la ventana")
     def changeTriangulo(self):
+        self.makeSucesion()
         self.frameImagen.config(bg="green")
         print("Aqui se debe cambiar la ventana")
     def getSucesion(self):
@@ -19,12 +22,13 @@ class Vista():
     def __init__(self):
         self.ventana = Tk() #instancia de una ventana 
         self.ventana.title("Sucesiones de Farey")
-        self.changeSize(1000,300)
+        self.changeSize(1000,800)
         self.frameBotones = Frame(self.ventana, height=300)
         self.frameDatos = Frame(self.ventana)
-        self.frameImagen = Frame(self.ventana, height=500)
+        self.frameImagen = Frame(self.ventana, height=600, width=600)
         self.frameImagen.config(bg='black')
         self.sucesion = []
+        self.scale = 1
         self.var = StringVar()
         self.var.set("")
         self.makeLabel()
