@@ -14,7 +14,7 @@ class Vista():
         self.ventana = Tk() #instancia de una ventana 
         self.ventana.title("Sucesiones de Farey")
         self.changeSize(500,300)
-        self.frame= ttk.Frame(self.ventana, width = 500, height = 300)
+        self.frame= ttk.Frame(self.ventana)
         self.makeLabel()
         self.makeBotones()
         self.frame.pack()
@@ -25,7 +25,7 @@ class Vista():
         self.labelTittle = Label(self.frame, 
                                  text="Sucesiones de Farey", 
                                  font=('Arial', 25, 'bold'))
-        self.labelTittle.grid(row = 0, column = 1, columnspan = 2)
+        self.labelTittle.grid(row = 0, column = 1, columnspan = 3)
         self.labelIngresa = Label(self.frame, 
                                   text="Ingresa la n de tu sucesion", 
                                   font=('Arial', 15))
