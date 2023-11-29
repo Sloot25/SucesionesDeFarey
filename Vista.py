@@ -24,30 +24,30 @@ class Vista():
         #Metodo que genera nuestros reccuadros de texto y los posiciona dentro de nuestra ventana
         self.labelTittle = Label(self.frame, 
                                  text="Sucesiones de Farey", 
-                                 font=('Arial', 25, 'bold'))
-        self.labelTittle.grid(row = 0, column = 1, columnspan = 3)
+                                 font=('Arial', 20, 'bold'))
+        self.labelTittle.grid(row = 0, column = 2, columnspan = 2)
         self.labelIngresa = Label(self.frame, 
                                   text="Ingresa la n de tu sucesion", 
-                                  font=('Arial', 15))
+                                  font=('Arial', 11))
         self.labelIngresa.grid(row = 1, column = 0, columnspan = 2, sticky='w', padx = 10, pady = 10)
     def makeBotones(self):
         #Metodo que crea los botones y los posiciona dentro de nuestra ventana 
         self.poligonoButton = Button(self.frame, 
                                      text="Poligono de Farey",
                                      command= self.changePoligono, 
-                                     font=("Comic Sans",15))
+                                     font=("Comic Sans",11))
         self.puntosVisiblesButton = Button(self.frame, 
                                      text="Puntos visibles", 
                                      command=self.changePuntosVisibles, 
-                                     font=("Comic Sans", 15))
+                                     font=("Comic Sans", 11))
         self.trianguloButton = Button(self.frame, 
                                       text="Triangulo", 
                                       command=self.changeTriangulo, 
-                                      font=("Comic Sans", 15))
+                                      font=("Comic Sans", 11))
         self.sucesionButton = Button(self.frame,
                                      text="Obtener Sucesion", 
                                      command=self.getSucesion,
-                                     font=("Comic Sans", 15))
+                                     font=("Comic Sans", 11))
         self.poligonoButton.grid(row=2, column = 0, padx = 10, pady=10)
         self.puntosVisiblesButton.grid(row = 2, column = 1, padx = 10, pady = 10)
         self.trianguloButton.grid(row=2, column = 2, padx = 10, pady = 10)
