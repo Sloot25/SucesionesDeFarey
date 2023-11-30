@@ -1,19 +1,28 @@
 from tkinter import * 
 from tkinter import messagebox
+from svglib.svglib import svg2rlg
+from reportlab.graphics import renderPDF, renderPM
+from PIL import ImageTk, Image
 from MakeSeries import MakeSeries
 
 class Vista():
     def changePoligono(self):
         self.makeSucesion()
         self.frameImagen.config(bg="blue")
+        self.cargarImagen("solucion.svg")
+        self.labelImagen.configure(image = self.img)
         print("Aqui se debe cambiar la ventana")
     def changePuntosVisibles(self):
         self.makeSucesion()
         self.frameImagen.config(bg="red")
+        self.cargarImagen("prueba2.svg")
+        self.labelImagen.configure(image = self.img)
         print("Aqui se debe cambiar la ventana")
     def changeTriangulo(self):
-        self.makeSucesion()
         self.frameImagen.config(bg="green")
+        self.cargarImagen("prueba3.svg")
+        self.labelImagen.configure(image = self.img)
+        self.makeSucesion()
         print("Aqui se debe cambiar la ventana")
     def getSucesion(self):
         self.makeSucesion()
@@ -27,6 +36,7 @@ class Vista():
         self.frameDatos = Frame(self.ventana)
         self.frameImagen = Frame(self.ventana, height=600, width=600)
         self.frameImagen.config(bg='black')
+        self.img = ""
         self.sucesion = ""
         self.scale = 1
         self.var = StringVar()
@@ -40,6 +50,13 @@ class Vista():
         self.ventana.mainloop()
         
 
+
+    def cargarImagen(self, ruta:str):
+        drawing = svg2rlg(ruta)
+        renderPM.drawToFile(drawing, "temp.png", fmt="PNG")
+        imagen = Image.open("temp.png")
+        imagen = imagen.resize((600,600), Image.LANCZOS)
+        self.img = ImageTk.PhotoImage(imagen)
 
     def makeSucesion(self):
         if self.entradaPosicion.get() == "":
@@ -67,8 +84,10 @@ class Vista():
         labelIngresa.grid(row = 1, column = 0, columnspan = 2, sticky='w', padx = 10, pady = 10)
         labelNumeros = Label(self.frameDatos, 
                              textvariable=self.var, 
-                             font=('Arial', 15))
+                             font=('Arial', 13))
         labelNumeros.pack()
+        self.labelImagen = Label(self.frameImagen)
+        self.labelImagen.pack()
     def makeBotones(self):
         #Metodo que crea los botones y los posiciona dentro de nuestra ventana 
         poligonoButton = Button(self.frameBotones, 
