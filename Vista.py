@@ -7,24 +7,25 @@ from MakeSeries import MakeSeries
 
 class Vista():
     def changePoligono(self):
+        # Cambio el frame imagen para el SVG que muestra el poligono
         self.makeSucesion()
-        self.frameImagen.config(bg="blue")
         self.cargarImagen("solucion.svg")
         self.labelImagen.configure(image = self.img)
-        print("Aqui se debe cambiar la ventana")
+        self.var.set(str(self.sucesion))
     def changePuntosVisibles(self):
+        # Cambio del frame imagen para el SVG que muestra los puntos visibles
         self.makeSucesion()
-        self.frameImagen.config(bg="red")
         self.cargarImagen("prueba2.svg")
         self.labelImagen.configure(image = self.img)
-        print("Aqui se debe cambiar la ventana")
+        self.var.set(str(self.sucesion))
     def changeTriangulo(self):
-        self.frameImagen.config(bg="green")
+        # Cambio del frame imagen para el SVG que muestra el triangulo
         self.cargarImagen("prueba3.svg")
         self.labelImagen.configure(image = self.img)
         self.makeSucesion()
-        print("Aqui se debe cambiar la ventana")
+        self.var.set(str(self.sucesion))
     def getSucesion(self):
+        # Unicamente cambia la sucesion
         self.makeSucesion()
         self.var.set(str(self.sucesion))
 
@@ -38,7 +39,6 @@ class Vista():
         self.frameImagen.config(bg='black')
         self.img = ""
         self.sucesion = ""
-        self.scale = 1
         self.var = StringVar()
         self.var.set("")
         self.makeLabel()
@@ -52,6 +52,7 @@ class Vista():
 
 
     def cargarImagen(self, ruta:str):
+        #Convierte el archivo SVG a un PNG y lo carga 
         drawing = svg2rlg(ruta)
         renderPM.drawToFile(drawing, "temp.png", fmt="PNG")
         imagen = Image.open("temp.png")
@@ -59,6 +60,9 @@ class Vista():
         self.img = ImageTk.PhotoImage(imagen)
 
     def makeSucesion(self):
+        # Crea la sucesion de Farey, si el tamaño de la sucesion es demasiado 
+        # grande procedera a hacer un archivo TXT para su posterior lectura
+        # No tiene soporte si se le introduce una letra 
         if self.entradaPosicion.get() == "":
             messagebox.showinfo(title="Error", message="Ingresa un numero")
             return
