@@ -9,20 +9,20 @@ class Vista():
     def changePoligono(self):
         # Cambio el frame imagen para el SVG que muestra el poligono
         self.makeSucesion()
-        self.cargarImagen("solucion.svg")
+        self.areaPoligonoFarey()
+        self.cargarImagen("prueba2.svg")
         self.labelImagen.configure(image = self.img)
         self.var.set(str(self.sucesion))
     def changePuntosVisibles(self):
         # Cambio del frame imagen para el SVG que muestra los puntos visibles
         self.makeSucesion()
-        self.cargarImagen("prueba2.svg")
-        self.labelImagen.configure(image = self.img)
         self.var.set(str(self.sucesion))
     def changeTriangulo(self):
         # Cambio del frame imagen para el SVG que muestra el triangulo
         self.cargarImagen("prueba3.svg")
         self.labelImagen.configure(image = self.img)
         self.makeSucesion()
+        self.teoremaDePick()
         self.var.set(str(self.sucesion))
     def getSucesion(self):
         # Unicamente cambia la sucesion
@@ -40,6 +40,8 @@ class Vista():
         self.img = ""
         self.sucesion = ""
         self.var = StringVar()
+        self.varStringArea = StringVar()
+        self.varStringArea.set("")
         self.var.set("")
         self.makeLabel()
         self.makeEntry()
@@ -50,6 +52,19 @@ class Vista():
         self.ventana.mainloop()
         
 
+    
+    def teoremaDePick(self):
+    # Recordemos que X = y, X = 0, X = n-1, y = n 
+        indice = int(self.entradaPosicion.get())
+        makerSucesion = MakeSeries()
+        makerSucesion.makeSerie(indice)
+        puntosFrontera = indice + indice + indice - 1 
+        puntosInternos = 0
+        for i in range(0, len(makerSucesion.serie)):
+            if makerSucesion.serie[i][0] != makerSucesion.serie[i][1] and makerSucesion.serie[i][1] != indice and makerSucesion.serie[i][0] != 0 and makerSucesion.serie[i][0] != indice-1: 
+                puntosInternos += 1
+        areaPoligonoTriangular = puntosInternos + puntosFrontera/2 - 1 
+        self.varStringArea.set("El area del poligono es :" +  str(areaPoligonoTriangular))
 
     def cargarImagen(self, ruta:str):
         #Convierte el archivo SVG a un PNG y lo carga 
@@ -90,6 +105,9 @@ class Vista():
                              textvariable=self.var, 
                              font=('Arial', 13))
         labelNumeros.pack()
+        labelArea = Label(self.frameDatos,
+                          textvariable=self.varStringArea, 
+                          font=('Arial', 13)).pack()
         self.labelImagen = Label(self.frameImagen)
         self.labelImagen.pack()
     def makeBotones(self):
@@ -125,5 +143,25 @@ class Vista():
         posX = round(self.ventana.winfo_screenwidth()/2 - ventanaX/2)
         posY = round(self.ventana.winfo_screenheight()/2 - ventanaY/2)
         self.ventana.geometry(str(ventanaX) + "x" + str(ventanaY) + "+" + str(posX) + "+" + str(posY))
+
+    def gcd(self,a:int, b:int): 
+        if(a == 0): 
+            return b
+        return self.gcd(b%a, a)
+        
+    def phiEuler(self, n:int): 
+        result = 1
+        for i in range(2, n):
+            if (self.gcd(i, n) == 1):
+                result+=1
+        return result
+        
+    def areaPoligonoFarey(self):
+        indice = int(self.entradaPosicion.get())
+        area = 0
+        for i in range(1, indice+1):
+            area += self.phiEuler(i)
+        area = area/2
+        self.varStringArea.set("El area del poligono de Farey es: " + str(area))
 
 
